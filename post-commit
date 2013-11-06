@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+# shameless copied from 
+# http://mribica.github.io/posts/fun-with-git-pre-commit/
+
+puts "[GitShit]"
+
+# Get some info about the current commit
+repository_name = `basename "$PWD" .chop
+commit_hash, commit_date = `git log -l --pretty="%H%n%ci".split(/\r?\n/)
+
+# Capture image save it to ~/Pictures/gitshots/REPOSITORYNAME-TIMESTAMP-COMMITHASH.jpg
+
+exec "streamer -c /dev/video0 -b 16 -o ~/Pictures/gitshots/#{repository_name}_#{commit_date.gsub!(' ', '_')}_#{commit_hash}.jpg
+exit 1
