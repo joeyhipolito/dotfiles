@@ -1,0 +1,15 @@
+# Traversing folders
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+# Programs
+alias st='subl'
+alias v='vim'
+alias vi='vim'
+alias explore='nautilus'
+alias cout='xclip -selection c -o > '
+alias cin='xclip -selection c -i < '
+
+
