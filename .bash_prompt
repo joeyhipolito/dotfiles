@@ -1,0 +1,78 @@
+# .bash_prompt
+# a file that sets what my shell looks like
+# inspired by several devs, especially especially 
+# - Paul Irish (https://github.com/paulirish/)
+# - Necolas (https://github.com/necolas/)
+# - Bartinger (https://github.com/Bartinger/)
+
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+  export TERM=gnome-256color
+elif infocmp xterm-256color >/dev/null 2>&1; then
+  export TERM=xterm-256color
+fi
+
+if tput setaf 1 &> /dev/null; then
+  tput sgr0
+  if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
+    red=$(tput setaf 9)
+    pink=$(tput setaf 161)
+    green=$(tput setaf 82)
+    yellow=$(tput setaf 228)
+    blue=$(tput setaf 45)
+    violet=$(tput setaf 5)
+    purple=$(tput setaf 98)
+    cyan=$(tput setaf 86)
+    white=$(tput setaf 255)
+    black=$(tput setaf 8)
+  else
+    blue=$(tput setaf 4)
+    green=$(tput setaf 2)
+    red=$(tput setaf 1)
+    purple=$(tput setaf 5)
+    cyan=$(tput setaf 6)
+  fi
+  bold=$(tput bold)
+  reset=$(tput sgr0)
+else
+  orange=$'\e[38;05;202m'
+  blue=$'\e[38;05;69m'
+  pink=$'\e[38;05;198m'
+  yellow=$'\e[38;05;222m'
+  violet=$'\e[38;05;135m'
+  green=$'\e[38;05;154m'
+  white=$'\e[38;05;7m'
+  bold=$'\e[1m'
+  reset=$'\e[0m'
+fi
+
+function git_info() {
+  # check if we're in a git repo
+  git rev-parse --is-inside-work-tree &>/dev/null || return
+
+  # quickest check for what branch we're on
+  branch=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||')
+
+  # check if it's dirty (via github.com/sindresorhus/pure)
+  dirty=$(git diff --quiet --ignore-submodules HEAD &>/dev/null; [ $? -eq 1 ]&& echo -e "[!]")
+
+  echo $white" on "$bold$pink$branch$dirty
+}
+
+# Only show username/host if not default
+function usernamehost() {
+  if [[ $USER == "joeyhipolito" ]]; then
+    echo "${red}you${white} ${violet}$HOSTNAME ${white}in ";
+  fi
+}
+
+# set the terminal title to the current working directory
+PS1="\[\033]0;\w\007\]"
+
+PS1+="\$(usernamehost)" # username
+PS1+="\[$reset$white\]"
+PS1+="\[$green\]\w" # working directory
+PS1+="\$(git_info \"$white on $cyan\")" # git repository details
+PS1+="\n"
+PS1+="\[$reset$white\]\$ \[$reset\]" # $ (and reset color)
+
+export PS1
