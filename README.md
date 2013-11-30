@@ -13,7 +13,7 @@ You can do whatever you want. Assuming that you are in here tells me that you ar
 
 
 ## Dependencies
-On some of the dotfiles, there are package dependencies, like (pathogen)[https://github.com/tpope/vim-pathogen], (z)[https://github.com/rupa/z/] and (NERDTree)[https://github.com/scrooloose/nerdtree].
+On some of the dotfiles, there are package dependencies, like [pathogen](https://github.com/tpope/vim-pathogen), [z](https://github.com/rupa/z) and [NERDTree](https://github.com/scrooloose/nerdtree).
 
 I hope you can get it working!
 
