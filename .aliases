@@ -32,6 +32,7 @@ alias undopush='git push -f origin HEAD^:master'
 alias undocommit='git reset --soft "HEAD^"'
 alias undostage='git reset HEAD'
 
+alias pogi='joey'
 
 
 
